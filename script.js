@@ -6,21 +6,14 @@ let activeFilter = 'all';
 let nextId = parseInt(localStorage.getItem('snpl_nextId') || '1', 10);
 
 
-/* ── Storage ────────────────────────────────────────────────
-   Persist the habits array and the ID counter to localStorage
-   so data survives a page refresh.
-   ---------------------------------------------------------- */
+
 function saveToStorage() {
   localStorage.setItem('snpl_habits', JSON.stringify(habits));
   localStorage.setItem('snpl_nextId', String(nextId));
 }
 
 
-/* ── Validation ──────────────────────────────────────────────
-   Reads the form inputs, checks every rule, and either:
-     • displays an inline error and returns false, or
-     • clears any error and returns the validated values.
-   ---------------------------------------------------------- */
+
 function validateForm() {
   const name      = document.getElementById('habit-name').value.trim();
   const targetRaw = document.getElementById('habit-target').value;
@@ -48,10 +41,7 @@ function validateForm() {
 }
 
 
-/* ── Add habit ───────────────────────────────────────────────
-   Creates a new habit object, pushes it onto the array,
-   then persists and re-renders everything.
-   ---------------------------------------------------------- */
+
 function addHabit(name, target, category) {
   const newHabit = {
     id:        nextId++,
@@ -69,10 +59,7 @@ function addHabit(name, target, category) {
 }
 
 
-/* ── Delete habit ────────────────────────────────────────────
-   Removes the habit with the given id from the array using
-   filter(), then persists and re-renders.
-   ---------------------------------------------------------- */
+
 function deleteHabit(id) {
   habits = habits.filter(function (h) { return h.id !== id; });
   saveToStorage();
@@ -81,11 +68,6 @@ function deleteHabit(id) {
 }
 
 
-/* ── Toggle done ─────────────────────────────────────────────
-   Marks a habit done or not-done for today.
-   Checking increments the streak; unchecking decrements it
-   (minimum 0 — streaks can't go negative).
-   ---------------------------------------------------------- */
 function toggleDone(id) {
   const habit = habits.find(function (h) { return h.id === id; });
   if (!habit) return;
@@ -104,12 +86,7 @@ function toggleDone(id) {
 }
 
 
-/* ── Render habits ───────────────────────────────────────────
-   Rebuilds the entire habit list from the habits array.
-   Applies the active category filter before rendering.
-   Attaches fresh event listeners to every card's checkbox
-   and delete button.
-   ---------------------------------------------------------- */
+
 function renderHabits() {
   const container = document.getElementById('habits-container');
 
@@ -183,11 +160,7 @@ function renderHabits() {
 }
 
 
-/* ── Update summary ──────────────────────────────────────────
-   Recalculates total habits, how many are done today, and the
-   completion percentage, then updates the three summary cards
-   and the animated progress bar.
-   ---------------------------------------------------------- */
+
 function updateSummary() {
   const total = habits.length;
   const done  = habits.filter(function (h) { return h.doneToday; }).length;
@@ -200,9 +173,7 @@ function updateSummary() {
 }
 
 
-/* ── Helper: escape HTML ─────────────────────────────────────
-   Prevents XSS when inserting user-supplied text into innerHTML.
-   ---------------------------------------------------------- */
+
 function escHtml(str) {
   return str
     .replace(/&/g, '&amp;')
@@ -212,9 +183,7 @@ function escHtml(str) {
 }
 
 
-/* ── Event listeners ─────────────────────────────────────────
-   All interaction is wired up here — no inline onclick in HTML.
-   ---------------------------------------------------------- */
+
 
 // Form submission
 document.getElementById('habit-form').addEventListener('submit', function (e) {
