@@ -63,7 +63,7 @@ body::before {
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 6vw, 3.6rem);
   line-height: 1.05;
-  color: var(--text);
+  color: var(--border);
   letter-spacing: -0.02em;
 }
 
